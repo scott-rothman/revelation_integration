@@ -33,35 +33,27 @@
     <body>
     <?php echo $this->element('/header'); ?>
     <div class="container">
+  <div class="row">
+    <div class="single_col col-xs-12">
+        <?php echo $this->element('/paginator'); ?>
+    
         <div class="row">
-            <div class="left_col col-md-8 col-xs-12">
-                <section class="home_articles">
-                    <?php echo $this->element('/article'); ?>
-                </section>
-                <section class="upcomming_shows_home">
-                    <h1 class="eyebrow">Upcomming Shows</h1>
-                    <table>
-                        <?php echo $this->element('/upcommingShow'); ?>
-                    </table>
-                </section>
-            </div>
-            <div class="right_col col-md-4 col-xs-12">
-                <section class="new_releases">
-                    <h2 class="eyebrow">New Releases</h2>
-                    <?php echo $this->element('/release'); ?>
-                    <a class="btn" href="releases.html">More ></a>
-                </section>
-                <section class="upcomming_shows_home">
-                    <h1 class="eyebrow">Upcomming Shows</h1>
-                    <table>
-                        <?php echo $this->element('/upcommingShow'); ?>
-                    </table>
-                </section>
-                <?php echo $this->element('/staffSuggests'); ?>
-                <?php echo $this->element('/pictureOfTheDay'); ?>
-            </div>
+            <?php echo $this->element('/artist'); ?>
+            <?php echo $this->element('/artist'); ?>
+            <?php echo $this->element('/artist'); ?>
+            <?php echo $this->element('/artist'); ?>
+            <?php echo $this->element('/artist'); ?>
+            <?php echo $this->element('/artist'); ?>
+            <?php echo $this->element('/artist'); ?>
+            <?php echo $this->element('/artist'); ?>
+            <?php echo $this->element('/artist'); ?>
+            <?php echo $this->element('/artist'); ?>
         </div>
+        <?php echo $this->element('/paginator'); ?> 
     </div>
+</div>
+
+
 <?php 
     echo $this->element('/footer');
     echo $this->element('/footerIncludes');

@@ -38,12 +38,7 @@
                 <section class="home_articles">
                     <?php echo $this->element('/article'); ?>
                 </section>
-                <section class="upcomming_shows_home">
-                    <h1 class="eyebrow">Upcomming Shows</h1>
-                    <table>
-                        <?php echo $this->element('/upcommingShow'); ?>
-                    </table>
-                </section>
+                <?php echo $this->element('/paginator'); ?>
             </div>
             <div class="right_col col-md-4 col-xs-12">
                 <section class="new_releases">
@@ -51,14 +46,7 @@
                     <?php echo $this->element('/release'); ?>
                     <a class="btn" href="releases.html">More ></a>
                 </section>
-                <section class="upcomming_shows_home">
-                    <h1 class="eyebrow">Upcomming Shows</h1>
-                    <table>
-                        <?php echo $this->element('/upcommingShow'); ?>
-                    </table>
-                </section>
-                <?php echo $this->element('/staffSuggests'); ?>
-                <?php echo $this->element('/pictureOfTheDay'); ?>
+                <?php echo $this->element('/pastShows'); ?>
             </div>
         </div>
     </div>
