@@ -11,19 +11,19 @@
     </div>
     <nav class="main_nav">
     
-      <a class="" href="index.html">HOME</a>
+      <a class="" href="/">HOME</a>
       
-      <a class="" href="news.html">NEWS</a>
+      <a class="" href="/news">NEWS</a>
       
-      <a class="active" href="artists.html">ARTISTS</a>
+      <a class="active" href="/artists">ARTISTS</a>
       
-      <a class="" href="shows.html">SHOWS</a>
+      <a class="" href="/shows">SHOWS</a>
       
-      <a class="" href="releases.html">RELEASES</a>
+      <a class="" href="/releases">RELEASES</a>
       
-      <a class="" href="vinyl.html">VINYL</a>
+      <a class="" href="/vinyl">VINYL</a>
       
-      <a class="" href="contact.html">CONTACT</a>
+      <a class="" href="/contact">CONTACT</a>
       
     </nav>
     <div class="hamburger">

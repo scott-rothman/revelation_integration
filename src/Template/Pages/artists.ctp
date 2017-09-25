@@ -20,6 +20,9 @@
     use Cake\Network\Exception\NotFoundException;
 
     $this->layout = false;
+
+    $connection = ConnectionManager::get('default');
+    $results = $connection->execute('SELECT * FROM artists ORDER BY name')->fetchAll('assoc');
 ?>
 
 <!DOCTYPE html>
@@ -38,16 +41,23 @@
         <?php echo $this->element('/paginator'); ?>
     
         <div class="row">
-            <?php echo $this->element('/artist'); ?>
-            <?php echo $this->element('/artist'); ?>
-            <?php echo $this->element('/artist'); ?>
-            <?php echo $this->element('/artist'); ?>
-            <?php echo $this->element('/artist'); ?>
-            <?php echo $this->element('/artist'); ?>
-            <?php echo $this->element('/artist'); ?>
-            <?php echo $this->element('/artist'); ?>
-            <?php echo $this->element('/artist'); ?>
-            <?php echo $this->element('/artist'); ?>
+            <?php 
+                $output = '';
+
+                foreach ($results as $result) {
+                    $id = $result['id'];
+                    $name = $result['name'];
+                    echo "<div class='col-md-4 col-xs-12'>
+                        <a href='/artist/$id'>
+                            <div class='card'>
+                                <img src='img/image.png' alt=''>
+                                <span class='label'>$name</span>    
+                            </div>
+                        </a>
+                    </div>";
+                }
+
+            ?>
         </div>
         <?php echo $this->element('/paginator'); ?> 
     </div>

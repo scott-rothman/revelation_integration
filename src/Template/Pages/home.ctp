@@ -20,6 +20,9 @@
     use Cake\Network\Exception\NotFoundException;
 
     $this->layout = false;
+
+    $connection = ConnectionManager::get('default');
+    $ar_articles = $connection->execute('SELECT * FROM news_articles ORDER BY published_on LIMIT 2')->fetchAll('assoc');
 ?>
 
 <!DOCTYPE html>
@@ -36,7 +39,7 @@
         <div class="row">
             <div class="left_col col-md-8 col-xs-12">
                 <section class="home_articles">
-                    <?php echo $this->element('/article'); ?>
+                    <?php echo $this->element('/articles', array('articles' => $ar_articles)); ?>
                 </section>
                 <section class="upcomming_shows_home">
                     <h1 class="eyebrow">Upcomming Shows</h1>

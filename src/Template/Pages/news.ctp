@@ -20,6 +20,22 @@
     use Cake\Network\Exception\NotFoundException;
 
     $this->layout = false;
+
+
+    if (array_key_exists('start', $this->request->query)) {
+        $start = $this->request->query['start'];
+    } else {
+        $start = 0;
+    }
+
+    $end = $start + 10;
+
+    print "$start - $end";
+
+    $connection = ConnectionManager::get('default');
+    $ar_articles = $connection->execute("SELECT * FROM news_articles ORDER BY published_on LIMIT $start, 10")->fetchAll('assoc');
+    $final = $connection->execute("SELECT COUNT(id) FROM news_articles ORDER BY published_on")->fetch();
+    $final = $final[0];
 ?>
 
 <!DOCTYPE html>
@@ -36,9 +52,9 @@
         <div class="row">
             <div class="left_col col-md-8 col-xs-12">
                 <section class="home_articles">
-                    <?php echo $this->element('/article'); ?>
+                    <?php echo $this->element('/articles', array('articles' => $ar_articles)); ?>
                 </section>
-                <?php echo $this->element('/paginator'); ?>
+                <?php echo $this->element('/paginator', array('start' => $start, 'end' => $final)); ?>
             </div>
             <div class="right_col col-md-4 col-xs-12">
                 <section class="new_releases">
