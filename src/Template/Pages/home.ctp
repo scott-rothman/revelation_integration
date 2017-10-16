@@ -23,6 +23,7 @@
 
     $connection = ConnectionManager::get('default');
     $ar_articles = $connection->execute('SELECT * FROM news_articles ORDER BY published_on LIMIT 2')->fetchAll('assoc');
+    $ar_shows = $connection->execute('SELECT * FROM tourdates ORDER BY artist_id, performs_on LIMIT 10;')->fetchAll('assoc');
 ?>
 
 <!DOCTYPE html>
@@ -44,7 +45,7 @@
                 <section class="upcomming_shows_home">
                     <h1 class="eyebrow">Upcomming Shows</h1>
                     <table>
-                        <?php echo $this->element('/upcommingShow'); ?>
+                        <?php echo $this->element('/upcommingShow', array('shows' => $ar_shows)); ?>
                     </table>
                 </section>
             </div>
@@ -57,7 +58,7 @@
                 <section class="upcomming_shows_home">
                     <h1 class="eyebrow">Upcomming Shows</h1>
                     <table>
-                        <?php echo $this->element('/upcommingShow'); ?>
+                        <?php echo $this->element('/upcommingShow', array('shows' => $ar_shows)); ?>
                     </table>
                 </section>
                 <?php echo $this->element('/staffSuggests'); ?>

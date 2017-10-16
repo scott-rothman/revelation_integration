@@ -21,23 +21,35 @@
 
     $this->layout = false;
 
-    $connection = ConnectionManager::get('default');
-
-    $releases = $connection->execute('SELECT id, thumbnail FROM releases WHERE is_suggested = TRUE')->fetchAll('assoc');
-
 ?>
 
-<?php foreach ($releases as $release) {
-    
-    echo '<section class="featured_artist"><h2 class="eyebrow">Staff Suggests</h2>';
+<!DOCTYPE html>
+    <html>
+    <head>
+        <?= $this->Html->charset() ?>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <?php echo $this->element('/headerIncludes'); ?>
+        <title>Revelation Records | Home</title>
+    </head>
+    <body>
+    <?php echo $this->element('/header'); ?>
+    <div class="container">
+  <div class="row">
+    <div class="single_col col-xs-12">
+      <section>
+        <h1>Contact</h1>
+        <h4>email: <a href="#">contact@contact.com</a></h4>
+        <h4>phone: <a href="">(123) 456-7890</a></h4>
+        </section>
+    </div>
+  </div>
+</div>
+</div>
 
-    echo '<img src="'.$release['thumbnail'].'" alt="">';
-    echo '<h4>'.$release['name'].'</h4>';
-    echo '<p>'.$release['description'].'</p>';
-    echo '<a class="btn" href="'.$release['itunes_url'].'">'.$release['price'].' - Buy Now</a>';
-    echo '</section>';
-}
 
+<?php 
+    echo $this->element('/footer');
+    echo $this->element('/footerIncludes');
 ?>
-
-    
+</body>
+</html>

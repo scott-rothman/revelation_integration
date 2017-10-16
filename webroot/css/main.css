@@ -590,3 +590,46 @@ footer {
   .album_profile .artist_releases .artist_release {
     flex: 0 0 22%;
     margin-bottom: 20px; }
+
+#cms {
+    padding-top: 40px;
+}
+
+#cms h1 {
+    color: #FFFFFF;
+}
+
+#cms h2 {
+    color: #FFFFFF;
+}
+
+#cms ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+#cms li {
+    color: #FFFFFF;
+    font-size: 24px;
+    padding-left: 0;
+}
+
+#cms a {
+    color: #FFFFFF;
+}
+
+#cms input {
+    margin: 0 0 20px;
+    padding: 10px;
+    width: 100%;
+}
+
+#cms textarea {
+    margin: 0 0 20px;
+    padding: 10px;
+    width: 100%;
+}
+
+#cms label {
+    color: #FFFFFF;
+}

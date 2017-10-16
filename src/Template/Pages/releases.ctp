@@ -28,10 +28,10 @@
     }
 
     $connection = ConnectionManager::get('default');
-    $results = $connection->execute('SELECT * FROM artists ORDER BY name LIMIT '.$start.', 12')->fetchAll('assoc');
+    $results = $connection->execute('SELECT * FROM releases ORDER BY name LIMIT '.$start.', 12')->fetchAll('assoc');
     $final = $connection->execute("SELECT COUNT(id) FROM artists ORDER BY name")->fetch();
     $final = $final[0];
-    $paginatorPage = 'artists';
+    $paginatorPage = 'releases';
 ?>
 
 <!DOCTYPE html>
@@ -47,7 +47,7 @@
     <div class="container">
   <div class="row">
     <div class="single_col col-xs-12">
-        <?php echo $this->element('/artists_paginator', array('start' => $start, 'end' => $final, 'artists' => $paginatorPage)); ?>
+        <?php echo $this->element('/releases_paginator', array('start' => $start, 'end' => $final, 'artists' => $paginatorPage)); ?>
     
         <div class="row">
             <?php 
@@ -57,7 +57,7 @@
                     $id = $result['id'];
                     $name = $result['name'];
                     echo "<div class='col-md-4 col-xs-12'>
-                        <a href='/artist?id=$id'>
+                        <a href='/release?id=$id'>
                             <div class='card'>
                                 <img src='img/image.png' alt=''>
                                 <span class='label'>$name</span>    
@@ -68,7 +68,7 @@
 
             ?>
         </div>
-        <?php echo $this->element('/artists_paginator', array('start' => $start, 'end' => $final, 'artists' => $paginatorPage)); ?>
+        <?php echo $this->element('/releases_paginator', array('start' => $start, 'end' => $final, 'artists' => $paginatorPage)); ?>
     </div>
 </div>
 

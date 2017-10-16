@@ -10,22 +10,29 @@
     $this->layout = false;
 
     $connection = ConnectionManager::get('default');
-    $results = $connection->execute('SELECT distinct artist_id FROM tourdates ORDER BY performs_on LIMIT 5')->fetchAll('assoc'); 
     
-    
+    $next_artist = '';    
 ?>
 
+<? foreach ($shows as $show) { 
 
-<tr class="artist">
-    <td colspan="3">Burn</td>
-</tr>
-<tr>
-    <td width="15%">08.01.16</td>
-    <td width="25%">Richmond, VA</td>
-    <td width="60%">United Blood @ The Canal Clumb</td>
-</tr>
-<tr>
-    <td>08.01.16</td>
-    <td>Richmond, VA</td>
-    <td>United Blood @ The Canal Clumb</td>
-</tr>
+$artist_name = $connection->execute("SELECT name FROM artists WHERE id=$show[artist_id]")->fetchAll('assoc');
+$artist_name = $artist_name[0]['name'];
+$date = date('m.d.Y', strtotime($show['performs_on']));
+
+if ($artist_name != $next_artist) {
+    $next_artist = $artist_name;
+    echo "<tr class=\"artist\">
+        <td colspan=\"3\">$next_artist</td>
+    </tr>";
+}
+    echo "<tr>
+        <td width=\"15%\">".$date."</td>
+        <td width=\"25%\">".$show['city'].", ".$show['state']."</td>
+        <td width=\"60%\">".$show['venue']."</td>
+    </tr>";
+
+
+?>
+
+<?php } ?>

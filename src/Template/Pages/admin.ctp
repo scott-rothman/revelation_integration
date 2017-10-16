@@ -21,23 +21,27 @@
 
     $this->layout = false;
 
-    $connection = ConnectionManager::get('default');
-
-    $releases = $connection->execute('SELECT id, thumbnail FROM releases WHERE is_suggested = TRUE')->fetchAll('assoc');
 
 ?>
 
-<?php foreach ($releases as $release) {
-    
-    echo '<section class="featured_artist"><h2 class="eyebrow">Staff Suggests</h2>';
-
-    echo '<img src="'.$release['thumbnail'].'" alt="">';
-    echo '<h4>'.$release['name'].'</h4>';
-    echo '<p>'.$release['description'].'</p>';
-    echo '<a class="btn" href="'.$release['itunes_url'].'">'.$release['price'].' - Buy Now</a>';
-    echo '</section>';
-}
-
-?>
-
-    
+<!DOCTYPE html>
+    <html>
+    <head>
+        <?= $this->Html->charset() ?>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <?php echo $this->element('/headerIncludes'); ?>
+    </head>
+    <body id="cms">
+        <div class="container">
+            <h1>Admin</h1>
+            <h2>Edit:</h2>
+            <ul>
+                <li><a href="/list?type=news_articles">News</a></li>
+                <li><a href="/list?type=artists">Artists</a></li>
+                <li><a href="/list?type=tourdates">Shows</a></li>
+                <li><a href="/list?type=releases">Albums</a></li>
+                <li><a href="/list?type=vinyl">Vinyl</a></li>
+            </ul>
+        </div>
+    </body>
+</html>

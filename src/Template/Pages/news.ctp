@@ -30,7 +30,7 @@
 
     $end = $start + 10;
 
-    print "$start - $end";
+    $paginatorPage = 'news';
 
     $connection = ConnectionManager::get('default');
     $ar_articles = $connection->execute("SELECT * FROM news_articles ORDER BY published_on LIMIT $start, 10")->fetchAll('assoc');
@@ -54,7 +54,7 @@
                 <section class="home_articles">
                     <?php echo $this->element('/articles', array('articles' => $ar_articles)); ?>
                 </section>
-                <?php echo $this->element('/paginator', array('start' => $start, 'end' => $final)); ?>
+                <?php echo $this->element('/paginator', array('start' => $start, 'end' => $final, 'page' => $paginatorPage)); ?>
             </div>
             <div class="right_col col-md-4 col-xs-12">
                 <section class="new_releases">

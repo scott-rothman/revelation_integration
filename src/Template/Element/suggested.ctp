@@ -29,15 +29,8 @@
 
 <?php foreach ($releases as $release) {
     
-    echo '<section class="featured_artist"><h2 class="eyebrow">Staff Suggests</h2>';
-
-    echo '<img src="'.$release['thumbnail'].'" alt="">';
-    echo '<h4>'.$release['name'].'</h4>';
-    echo '<p>'.$release['description'].'</p>';
-    echo '<a class="btn" href="'.$release['itunes_url'].'">'.$release['price'].' - Buy Now</a>';
-    echo '</section>';
+    echo "<div class=\"release\">
+        <a href=\"/album/".$release['id']."\"><img src=\"".$release['thumbnail']."\" alt=\"\"></a>
+    </div>";
 }
 
-?>
-
-    

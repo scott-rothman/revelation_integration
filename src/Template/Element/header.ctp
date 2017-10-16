@@ -1,3 +1,5 @@
+<?php $curPage = $this->viewVars['page']; ?>
+
 <header>
 <a href="index.html">
       <img class="sticky_logo" src="img/mobile_logo.png" alt="">
@@ -11,19 +13,19 @@
     </div>
     <nav class="main_nav">
     
-      <a class="" href="/">HOME</a>
+      <a class="<?php if ($curPage == 'home') { echo 'active'; } ?>" href="/">HOME</a>
       
-      <a class="" href="/news">NEWS</a>
+      <a class="<?php if ($curPage == 'news') { echo 'active'; } ?>" href="/news">NEWS</a>
       
-      <a class="active" href="/artists">ARTISTS</a>
+      <a class="<?php if ($curPage == 'artists') { echo 'active'; } ?>" href="/artists">ARTISTS</a>
       
-      <a class="" href="/shows">SHOWS</a>
+      <a class="<?php if ($curPage == 'shows') { echo 'active'; } ?>" href="/shows">SHOWS</a>
       
-      <a class="" href="/releases">RELEASES</a>
+      <a class="<?php if ($curPage == 'releases') { echo 'active'; } ?>" href="/releases">RELEASES</a>
       
-      <a class="" href="/vinyl">VINYL</a>
+      <a class="<?php if ($curPage == 'vinyl') { echo 'active'; } ?>" href="/vinyl">VINYL</a>
       
-      <a class="" href="/contact">CONTACT</a>
+      <a class="<?php if ($curPage == 'contact') { echo 'active'; } ?>" href="/contact">CONTACT</a>
       
     </nav>
     <div class="hamburger">

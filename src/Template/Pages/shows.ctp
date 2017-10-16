@@ -20,6 +20,10 @@
     use Cake\Network\Exception\NotFoundException;
 
     $this->layout = false;
+
+    $connection = ConnectionManager::get('default');
+
+    $ar_shows = $connection->execute('SELECT * FROM tourdates ORDER BY artist_id, performs_on;')->fetchAll('assoc');
 ?>
 
 <!DOCTYPE html>
@@ -35,10 +39,12 @@
     <div class="container">
         <div class="row">
             <div class="left_col col-md-8 col-xs-12">
-                <section class="home_articles">
-                    <?php echo $this->element('/article'); ?>
+                <section class="upcomming_shows_home">
+                    <h1 class="eyebrow">Upcomming Shows</h1>
+                    <table>
+                        <?php echo $this->element('/upcommingShow', array('shows' => $ar_shows)); ?>
+                    </table>
                 </section>
-                <?php echo $this->element('/paginator'); ?>
             </div>
             <div class="right_col col-md-4 col-xs-12">
                 <section class="new_releases">

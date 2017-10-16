@@ -57,6 +57,16 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
     $routes->connect('/news', ['controller' => 'Pages', 'action' => 'display', 'news']);
     $routes->connect('/artists', ['controller' => 'Pages', 'action' => 'display', 'artists']);
+    $routes->connect('/shows', ['controller' => 'Pages', 'action' => 'display', 'shows']);
+    $routes->connect('/releases', ['controller' => 'Pages', 'action' => 'display', 'releases']);
+    $routes->connect('/vinyl', ['controller' => 'Pages', 'action' => 'display', 'vinyl']);
+    $routes->connect('/contact', ['controller' => 'Pages', 'action' => 'display', 'contact']);
+    $routes->connect('/artist', ['controller' => 'Pages', 'action' => 'display', 'artist']);
+    $routes->connect('/release', ['controller' => 'Pages', 'action' => 'display', 'release']);
+
+    $routes->connect('/admin', ['controller' => 'Pages', 'action' => 'display', 'admin']);
+    $routes->connect('/edit', ['controller' => 'Pages', 'action' => 'display', 'edit']);
+    $routes->connect('/list', ['controller' => 'Pages', 'action' => 'display', 'list']);
 
     /**
      * Connect catchall routes for all controllers.
