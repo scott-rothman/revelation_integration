@@ -29,7 +29,8 @@
 
     $connection = ConnectionManager::get('default');
     $results = $connection->execute('SELECT * FROM releases ORDER BY name LIMIT '.$start.', 12')->fetchAll('assoc');
-    $final = $connection->execute("SELECT COUNT(id) FROM artists ORDER BY name")->fetch();
+    $final = $connection->execute("SELECT COUNT(id) FROM releases ORDER BY name")->fetch();
+
     $final = $final[0];
     $paginatorPage = 'releases';
 ?>
@@ -47,7 +48,7 @@
     <div class="container">
   <div class="row">
     <div class="single_col col-xs-12">
-        <?php echo $this->element('/releases_paginator', array('start' => $start, 'end' => $final, 'artists' => $paginatorPage)); ?>
+        <?php echo $this->element('/paginator', array('start' => $start, 'end' => $final, 'paginatorPage' => $paginatorPage)); ?>
     
         <div class="row">
             <?php 
@@ -56,11 +57,17 @@
                 foreach ($results as $result) {
                     $id = $result['id'];
                     $name = $result['name'];
+                    $artist_id = $ar_release['artist_id'];
+
+                    $ar_artist = $connection->execute("SELECT * FROM artists WHERE id=$artist_id;")->fetchAll('assoc');
+                    $ar_artist = $ar_artist[0];
                     echo "<div class='col-md-4 col-xs-12'>
                         <a href='/release?id=$id'>
-                            <div class='card'>
-                                <img src='img/image.png' alt=''>
-                                <span class='label'>$name</span>    
+                            <div class='card'>";
+                            if (isset($result['thumbnail'])) {
+                                echo "<img src='".$result['thumbnail']."' alt=''>";
+                            }
+                                echo "<span class='label'>$name -".$ar_artist[0]['name']."</span>    
                             </div>
                         </a>
                     </div>";
@@ -68,10 +75,10 @@
 
             ?>
         </div>
-        <?php echo $this->element('/releases_paginator', array('start' => $start, 'end' => $final, 'artists' => $paginatorPage)); ?>
+        <?php echo $this->element('/paginator', array('start' => $start, 'end' => $final, 'paginatorPage' => $paginatorPage)); ?>
     </div>
 </div>
-
+</div>
 
 <?php 
     echo $this->element('/footer');

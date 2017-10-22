@@ -29,19 +29,9 @@
     $connection = ConnectionManager::get('default');
 
     $table = $this->request->query['type'];
-    if (isset($this->request->query['id'])) {
-        $id = $this->request->query['id'];
-        $id_string = "WHERE id = $id";
-    } else {
-        $id = 'NEW';
-        $id_string = '';
-    }
 
-    $values = $connection->execute("SELECT * FROM $table $id_string")->fetchAll('assoc');
     $fields = $connection->execute("DESC $table")->fetchAll('assoc');
-
     $artist_ids = $connection->execute("SELECT id, name FROM artists ORDER BY name")->fetchAll('assoc');
-
 
     $field_type['id'] = 'hidden';
     $field_type['name'] = 'text';
@@ -85,11 +75,11 @@
         <h1><?php echo $table; ?></h1>
         <form action="/process" method="post">
         <?php 
-            foreach ($values as $entry) {
+            
                 foreach ($fields as $field) {
                     $type = $field['Field'];
                     if ($type == 'id') {
-                        $value = $id;
+                        $value = 'NEW';
                     } else {
                         if (isset ($entry[$field['Field']])) {
                             $value = $entry[$field['Field']];    
@@ -105,7 +95,9 @@
                                 echo "<label for='$type'>$type</label><br>";    
                             }
                         }
-                        if ($field_type[$type] == 'textarea') {
+                        if ($field_type[$type] == 'hidden') {
+                            echo "<input type='$field_type[$type]' id='$type' name='$type' value='$value' >";
+                        } elseif ($field_type[$type] == 'textarea') {
                             echo "<textarea id='$type' name='$type'>$value</textarea><br>";
                         } elseif ($field_type[$type] == 'checkbox') {
                             if ($value == 'CURRENT') {
@@ -116,7 +108,7 @@
                             echo "<input type='$field_type[$type]' id='$type' name='$type' $checked><br>";
                         } elseif ($field_type[$type] =='date') {
                             $value = date('Y-m-d', strtotime($value));
-                            echo "<input type='$field_type[$type]' id='$type' name='$type' value='$value' ><br>";
+                            echo "<input type='$field_type[$type]' id='$type' name='$type'><br>";
                         } else {
                             if ($type == 'image' || 
                                 $type == 'logo' || 
@@ -126,11 +118,12 @@
                                 $type == 'back_vinyl') {
                                 echo "<img src='$value'>";    
                             }
-                            echo "<input type='$field_type[$type]' id='$type' name='$type' value='$value' ><br>";
+                            echo "<input type='$field_type[$type]' id='$type' name='$type'><br>";
                         }
+
                     }
                 }
-            }
+            
             if ($table == 'band_members' ||
                 $table == 'releases' ||
                 $table == 'tourdates' ||
@@ -140,12 +133,7 @@
 
                 $artist_dropdown = "<select id='artist_id' name='artist_id'>";
                 foreach ($artist_ids as $artist_id) {
-                    if ($artist_id['id'] = $entry['artist_id']) {
-                        $selected = "selected=selected";
-                    } else {
-                        $selected = "";
-                    }
-                    $artist_dropdown .= '<option value="'.$artist_id['id'].'" '.$selected.'>'.$artist_id["name"].'</option>';
+                    $artist_dropdown .= '<option value="'.$artist_id['id'].'">'.$artist_id["name"].'</option>';
                 }
                 $artist_dropdown .= "</select><br><br>";
             } else {

@@ -23,7 +23,15 @@
 
     $connection = ConnectionManager::get('default');
 
-    $ar_shows = $connection->execute('SELECT * FROM tourdates ORDER BY artist_id, performs_on;')->fetchAll('assoc');
+    if (isset($_POST['logging_in']) == 'true') {
+        $users = $connection->execute("SELECT * FROM users")->fetchAll('assoc');
+        if (sha1($_POST['password']) == $users[0]['password']) {
+            setcookie('logged_in', 'true', time() + (86400 * 30), "/");
+            header('Location: /admin');
+            exit();
+        }
+    }
+
 ?>
 
 <!DOCTYPE html>
@@ -32,32 +40,16 @@
         <?= $this->Html->charset() ?>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <?php echo $this->element('/headerIncludes'); ?>
-        <title>Revelation Records | Home</title>
     </head>
-    <body>
-    <?php echo $this->element('/header'); ?>
-    <div class="container">
-        <div class="row">
-            <div class="left_col col-md-8 col-xs-12">
-                <section class="upcomming_shows_home">
-                    <h1 class="eyebrow">Upcomming Shows</h1>
-                    <table>
-                        <?php echo $this->element('/upcommingShow', array('shows' => $ar_shows)); ?>
-                    </table>
-                </section>
-            </div>
-            <div class="right_col col-md-4 col-xs-12">
-                <section class="new_releases">
-                    <h2 class="eyebrow">New Releases</h2>
-                    <?php echo $this->element('/release'); ?>
-                    <a class="btn" href="releases.html">More ></a>
-                </section>
-            </div>
+    <body id="cms">
+        <div class="container">
+            <h1>Admin</h1>
+            <form action="/login" method="post">
+                <input type="text" placeholder="Username" name="username">
+                <input type="password" placeholder="Password" name="password">
+                <input type="hidden" name="logging_in" value="true">
+                <input type="submit" value="Login">
+            </form>
         </div>
-    </div>
-<?php 
-    echo $this->element('/footer');
-    echo $this->element('/footerIncludes');
-?>
-</body>
+    </body>
 </html>

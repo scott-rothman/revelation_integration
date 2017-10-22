@@ -25,6 +25,11 @@
 
     $table = $this->request->query['type'];
 
+    if(!isset($_COOKIE['logged_in'])) {
+        header('Location: /');
+        exit();
+    }
+
     if ($table == 'news_articles') {
         $query = "SELECT id, title, published_on FROM news_articles ORDER BY published_on";
     } elseif ($table == 'tourdates') {
@@ -35,6 +40,8 @@
         $query = "SELECT vinyl.id, vinyl.name, artists.name AS artist_name FROM vinyl INNER JOIN artists ON vinyl.artist_id = artists.id ORDER BY vinyl.name";
     } elseif ($table == 'artists') {
         $query = "SELECT id, name FROM artists ORDER BY name";
+    } elseif ($table == 'photos') {
+        $query = "SELECT * FROM photos ORDER BY artist_id";
     }
 
 
@@ -54,6 +61,8 @@
         <h1><?php echo $table; ?></h1>
         <ul>
         <?php 
+            $link = "<li><a href='/new?type=".$table."&id=NEW'>ADD NEW</a></li>";
+            echo $link;
             foreach ($values as $entry) {
                 if ($table == 'news_articles') {
                     $value = date('Y-m-d', strtotime($entry['published_on']));
@@ -68,7 +77,7 @@
                 } elseif ($table == 'artists') {
                     $display = $entry['name'];
                 }
-                $link = "<li><a href='/edit?type=".$table."&id=".$entry['id']."#'>".$display."</a></li>";
+                $link = "<li><a href='/edit?type=".$table."&id=".$entry['id']."'>".$display."</a></li>";
                 echo $link;
             }
         ?>

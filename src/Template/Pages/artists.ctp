@@ -58,9 +58,12 @@
                     $name = $result['name'];
                     echo "<div class='col-md-4 col-xs-12'>
                         <a href='/artist?id=$id'>
-                            <div class='card'>
-                                <img src='img/image.png' alt=''>
-                                <span class='label'>$name</span>    
+                            <div class='card'>";
+                    if (isset($result['image'])) {
+                        echo "<img src='".$result['image']."' alt=''>";
+                    }
+                                
+                                echo "<span class='label'>$name</span>    
                             </div>
                         </a>
                     </div>";
@@ -72,7 +75,7 @@
     </div>
 </div>
 
-
+</div>
 <?php 
     echo $this->element('/footer');
     echo $this->element('/footerIncludes');

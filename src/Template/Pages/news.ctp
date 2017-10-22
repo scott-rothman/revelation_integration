@@ -62,7 +62,6 @@
                     <?php echo $this->element('/release'); ?>
                     <a class="btn" href="releases.html">More ></a>
                 </section>
-                <?php echo $this->element('/pastShows'); ?>
             </div>
         </div>
     </div>

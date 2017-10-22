@@ -347,7 +347,8 @@ footer {
   width: 100%;
   height: auto;
   margin-bottom: 20px; }
-
+.upcomming_shows_home tr {
+    vertical-align: top;}
 .upcomming_shows_home table {
   width: 100%; }
 
@@ -361,7 +362,9 @@ footer {
 
 .upcomming_shows_home td {
   padding-top: 2px;
-  padding-bottom: 2px; }
+  padding-bottom: 2px; 
+  padding-right: 5px;
+  padding-left: 5px;}
   @media all and (max-width: 991px) {
     .upcomming_shows_home td {
       width: 100%;
@@ -622,6 +625,10 @@ footer {
     margin: 0 0 20px;
     padding: 10px;
     width: 100%;
+}
+
+#cms input[type='file'] {
+    color: #FFFFFF;
 }
 
 #cms textarea {

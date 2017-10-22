@@ -24,6 +24,8 @@
     $connection = ConnectionManager::get('default');
     $ar_articles = $connection->execute('SELECT * FROM news_articles ORDER BY published_on LIMIT 2')->fetchAll('assoc');
     $ar_shows = $connection->execute('SELECT * FROM tourdates ORDER BY artist_id, performs_on LIMIT 10;')->fetchAll('assoc');
+    $photos = $connection->execute("SELECT * FROM photos WHERE photo_of_the_day IS TRUE")->fetchAll('assoc');
+
 ?>
 
 <!DOCTYPE html>
@@ -62,7 +64,11 @@
                     </table>
                 </section>
                 <?php echo $this->element('/staffSuggests'); ?>
-                <?php echo $this->element('/pictureOfTheDay'); ?>
+                <?php 
+                    if (sizeof($photos) > 0) {
+                        echo $this->element('/pictureOfTheDay', array('potd' => $photos[0]));
+                    }
+                ?>
             </div>
         </div>
     </div>

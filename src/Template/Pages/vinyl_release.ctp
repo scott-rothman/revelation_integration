@@ -25,7 +25,7 @@
 
     $release_id = $this->request->query['id'];
 
-    $ar_release = $connection->execute("SELECT * FROM releases WHERE id=$release_id")->fetchAll('assoc');
+    $ar_release = $connection->execute("SELECT * FROM vinyl WHERE id=$release_id")->fetchAll('assoc');
     $ar_release = $ar_release[0];
 
     $artist_id = $ar_release['artist_id'];
@@ -34,8 +34,23 @@
     $ar_artist = $ar_artist[0];
 
 
-    $ar_releases = $connection->execute("SELECT * FROM releases WHERE artist_id=$artist_id")->fetchAll('assoc');
+    $ar_vinyl = $connection->execute("SELECT * FROM vinyl WHERE artist_id=$artist_id")->fetchAll('assoc');
     $ar_shows = $connection->execute("SELECT * FROM tourdates WHERE artist_id=$artist_id ORDER BY performs_on;")->fetchAll('assoc');
+
+    $displayString = '';
+
+    if (isset($ar_vinyl[0]['catalog_number'])) {
+        $displayString .= $ar_vinyl[0]['catalog_number']." : ";
+    }
+
+    if (isset($ar_artist['name'])) {
+        $displayString .= $ar_artist['name']." - ";
+    }
+
+    if (isset($ar_vinyl[0]['name'])) {
+        $displayString .= $ar_vinyl[0]['catalog_number'];
+    }
+
     
 ?>
 
@@ -45,36 +60,24 @@
         <?= $this->Html->charset() ?>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <?php echo $this->element('/headerIncludes'); ?>
-        <title>Revelation Records | <?php echo $ar_artist['name'] ?></title>
+        <title>Revelation Records | Home</title>
     </head>
     <body>
     <?php echo $this->element('/header'); ?>
     <div class="container">
-  <div class="row">
-    <div class="left_col col-md-8 col-xs-12">
-        <section class="album_profile">
-    <h1 class="eyebrow"><?php echo $ar_release['name']." - ".$ar_artist['name']; ?></h1>
-    <h2 class="eyebrow">Track Listing</h2>
-    <?php echo $ar_release['tracklist']; ?>
-    <h2 class="eyebrow">Other Releases</h2>
-    <div class="artist_releases">
-        <?php 
-        foreach ($ar_releases as $release) {
-                    $id = $release['id'];
-                    $name = $release['name'];
-                    $thumbnail = $release['thumbnail'];
-
-        echo '<div class="artist_release">
-            <a href="/release?id='.$id.'">
-                <img src="'.$thumbnail.'" alt="'.$name.'">
-            </a>
-        </div>';
-        }
-        ?>
-    </div>
-</section> 
-</div>
-    <div class="right_col col-md-4 col-xs-12">
+        <div class="row">
+            <div class="left_col col-md-8 col-xs-12">
+                <section>
+                    <h1 class="eyebrow"><?php echo $displayString; ?></h1>
+                    <div class="vinyl_release">
+                        <img src="<?php echo $ar_vinyl[0]['front_cover']; ?>" alt="">
+                        <img src="<?php echo $ar_vinyl[0]['back_cover']; ?>" alt="">
+                        <img src="<?php echo $ar_vinyl[0]['front_record']; ?>" alt="">
+                        <img src="<?php echo $ar_vinyl[0]['back_record']; ?>" alt="">
+                    </div>
+                </section>
+            </div>
+            <div class="right_col col-md-4 col-xs-12">
       <section class="upcomming_shows_artist">
           <h1 class="eyebrow">Upcomming Shows</h1>
             <table>
@@ -86,16 +89,18 @@
                     }
                 ?>
             </table>
-        </section>      
+        </section>
         <section class="past_shows">
           <h1 class="eyebrow">Past Shows</h1>
             <?php 
                 echo $this->element('/pastShows', array('artist_id' => $artist_id));
             ?>
-        </section> 
+        </section>      
     </div>
+        </div>
+        
   </div>
-</div>
+    </div>
 
 
 <?php 

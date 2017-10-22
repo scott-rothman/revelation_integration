@@ -28,6 +28,7 @@
     $ar_artist = $connection->execute("SELECT * FROM artists WHERE id=$artist_id")->fetchAll('assoc');
     $ar_releases = $connection->execute("SELECT * FROM releases WHERE artist_id=$artist_id")->fetchAll('assoc');
     $ar_shows = $connection->execute("SELECT * FROM tourdates WHERE artist_id=$artist_id ORDER BY performs_on;")->fetchAll('assoc');
+    $ar_photos = $connection->execute("SELECT * FROM photos WHERE artist_id=$artist_id;")->fetchAll('assoc');
     $ar_artist = $ar_artist[0];
 ?>
 
@@ -46,23 +47,21 @@
     <div class="left_col col-md-8 col-xs-12">
       <section class="artist_profile">
     <h1 class="eyebrow"><?php echo $ar_artist['name'] ?></h1>
-    <div class="image_slider">
-        <img class="band_photo" src="img/image-wide.png" alt="">
-        <div class="image_wrapper">
-            
-            <img src="img/image.png" alt="">
-            <img src="img/image.png" alt="">
-            <img src="img/image.png" alt="">
-            <img src="img/image.png" alt="">
-            <img src="img/image.png" alt="">
-            <img src="img/image.png" alt="">
-            <img src="img/image.png" alt="">
-            <img src="img/image.png" alt="">
-            
+    <?php if (sizeof($ar_photos) > 0) { ?>
+        <div class="image_slider">
+
+            <img class="band_photo" src="<?php echo $ar_photos[0]['photo']?>" alt="">
+            <div class="image_wrapper">
+                <?php foreach ($ar_photos as $photo) { ?>
+                
+                    <img src="<?php echo $photo['photo']?>" alt="">
+                
+                <?php } ?>
+            </div>
+            <div class="scroll_control scroll_left"> &lsaquo; </div>
+            <div class="scroll_control scroll_right"> &rsaquo; </div>
         </div>
-        <div class="scroll_control scroll_left"> &lsaquo; </div>
-        <div class="scroll_control scroll_right"> &rsaquo; </div>
-    </div>
+    <?php } ?>
     <h2 class="eyebrow">bio</h2>
     <p>
     <?php echo $ar_artist['bio'] ?>
@@ -99,312 +98,13 @@
                 ?>
             </table>
         </section>      
-<section class="past_shows">
-    <h2 class="eyebrow">Past Shows</h2>
-    <ul class="years">
-        <li class="year">2016</li>
-        <ul class="months">
-            <li class="month">January</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">February</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">March</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">April</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">May</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">June</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">July</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">August</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">September</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">October</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">November</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">December</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-        </ul>
-        <li class="year">2015</li>
-        <ul class="months">
-            <li class="month">January</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">February</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">March</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">April</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">May</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">June</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">July</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">August</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">September</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">October</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">November</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">December</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-        </ul>
-        <li class="year">2014</li>
-        <ul class="months">
-            <li class="month">January</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">February</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">March</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">April</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">May</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">June</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">July</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">August</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">September</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">October</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">November</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">December</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-        </ul>
-        <li class="year">2013</li>
-        <ul class="months">
-            <li class="month">January</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">February</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">March</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">April</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">May</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">June</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">July</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">August</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">September</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">October</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">November</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-            <li class="month">December</li>
-            <ul class="shows">
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-                <li class="show">Lorem ipsum</li>
-            </ul>
-        </ul>
-    </ul>
-    
-</section>    </div>
+        <section class="past_shows">
+          <h1 class="eyebrow">Past Shows</h1>
+            <?php 
+                echo $this->element('/pastShows', array('artist_id' => $artist_id));
+            ?>
+        </section>     
+    </div>
   </div>
 </div>
 

@@ -21,13 +21,7 @@
 
     $this->layout = false;
 
-    $connection = ConnectionManager::get('default');
-
-    if(!isset($_COOKIE['logged_in'])) {
-        header('Location: /');
-        exit();
-    }
-
+    $users = $connection->execute("SELECT * FROM users")->fetchAll('assoc');
 
 ?>
 
@@ -41,20 +35,11 @@
     <body id="cms">
         <div class="container">
             <h1>Admin</h1>
-            <h2>Edit:</h2>
-            <ul>
-                <li><a href="/list?type=news_articles">News</a></li>
-                <li><a href="/list?type=artists">Artists</a></li>
-                <li><a href="/list?type=tourdates">Shows</a></li>
-                <li><a href="/list?type=releases">Albums</a></li>
-                <li><a href="/list?type=vinyl">Vinyl</a></li>
-                <li><a href="/list?type=photos">Photos</a></li>
-            </ul>
-            <br><br>
-            <ul>
-                <li><a href="/user_update">Update Password</a></li>
-                <li><a href="/logout">Logout</a></li>
-            </ul>
+            <form action="/login">
+                <input type="hidden" placeholder="Username" name="username">
+                <input type="password" placeholder="Password" name="passowrd">
+                <input type="submit" value="Login">
+            </form>
         </div>
     </body>
 </html>
